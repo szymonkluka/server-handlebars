@@ -37,7 +37,7 @@ app.get(['/', '/home'], (req, res) => {
 });
 
 app.use(('/user/'), (req, res) => {
-    res.status(403).show(`forbidden.html`);
+    res.status(403).render(`forbidden`);
 });
 
 app.get('/hello/:name', (req, res) => {
