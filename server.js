@@ -17,7 +17,7 @@ app.post('/contact/send-message', upload.single('picture'), (req, res) => {
     const { author, sender, title, message, picture } = req.body;
 
     if (author && sender && title && message && picture) {
-        res.render('contact', { isSent: true });
+        res.render('contact', { isSent: true, pictureName: picture });
     }
     else {
         res.render('contact', { isError: true });
