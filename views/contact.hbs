@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-
 <h2>Contact me</h2>
 {{#if isSent}}
 <div class='isSent'>
@@ -29,9 +26,8 @@
         Message: <textarea name="message"></textarea>
     </label>
     <button type="submit">Send message</button>
-    <input type="file" name="picture" accept=".jpg, .png, .gif,">
+    <label>
+        Picture: <input type="file" name="picture" accept=".jpg, .png, .gif,">
+    </label>
 </form>
 <p>Send me an email at programmer@example.com</p>
-
-
-</html>

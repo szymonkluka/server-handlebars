@@ -14,9 +14,9 @@ app.use(express.urlencoded({ extended: false }));
 
 app.post('/contact/send-message', upload.single('picture'), (req, res) => {
 
-    const { author, sender, title, message } = req.body;
+    const { author, sender, title, message, picture } = req.body;
 
-    if (author && sender && title && message) {
+    if (author && sender && title && message && picture) {
         res.render('contact', { isSent: true });
     }
     else {
@@ -25,16 +25,27 @@ app.post('/contact/send-message', upload.single('picture'), (req, res) => {
 
 });
 
-app.get('/', (req, res) => {
+app.use((req, res, next) => {
+    res.show = (name) => {
+        res.sendFile(path.join(__dirname, `/views/${name}`));
+    };
+    next();
+});
+
+app.get(['/', '/home'], (req, res) => {
     res.render('index');
 });
 
+app.use(('/user/'), (req, res) => {
+    res.status(403).show(`forbidden.html`);
+});
+
 app.get('/hello/:name', (req, res) => {
-    res.render('hello');
+    res.render('hello', { name: req.params.name });
 });
 
 app.get('/about', (req, res) => {
-    res.render('about.hbs', { layout: 'black' });
+    res.render('about.hbs', { layout: 'main' });
 });
 
 app.get('/contact', (req, res) => {
@@ -50,7 +61,7 @@ app.get('/history', (req, res) => {
 });
 
 app.use((req, res) => {
-    res.status(404).send('404 not found...');
+    res.status(404).render('notfound');
 })
 
 app.listen(8000, () => {
